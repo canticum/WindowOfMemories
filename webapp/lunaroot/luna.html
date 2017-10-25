@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+        <link rel="icon" href="/favicon.ico"/>
+        <link rel="stylesheet" href="/css/luna_style.css"/>
+        <script src="/exif-js/exif.js"></script>
+        <script src="/blueimp-load-image/js/load-image.all.min.js"></script>
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <script src="/socket.io-client/dist/socket.io.js"></script>
+        <script src="/qrcode/build/qrcode.js"></script>
+        <script src="/config/Config.js"></script>
+        <script src="/luna/Card.js"></script>
+        <script src="/luna/ExifReader.js"></script>
+        <script src="/luna/Luna.js"></script>
+        <script src="/model/Record.js"></script>
+        <script src="/model/Record_Display.js"></script>
+        <script src="/model/Record_Query.js"></script>
+        <script src="/model/Result.js"></script>
+        <!--<script src="https://use.typekit.net/kmf3kjk.js"></script>-->
+<!--        <script>
+            try {
+                Typekit.load({async: true});
+            } catch (e) {
+            }
+        </script>
+        <style>
+            @font-face {
+                font-family: 'cwTeXHei';
+                font-style: normal;
+                font-weight: 500;
+                src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot);
+                src: url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.eot?#iefix) format('embedded-opentype'),
+                    url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff2) format('woff2'),
+                    url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.woff) format('woff'),
+                    url(//fonts.gstatic.com/ea/cwtexhei/v3/cwTeXHei-zhonly.ttf) format('truetype');
+            }
+            @font-face {
+                font-family: 'cwTeXKai';
+                font-style: normal;
+                font-weight: 500;
+                src: url(//fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.eot);
+                src: url(//fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.eot?#iefix) format('embedded-opentype'),
+                    url(//fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.woff2) format('woff2'),
+                    url(//fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.woff) format('woff'),
+                    url(//fonts.gstatic.com/ea/cwtexkai/v3/cwTeXKai-zhonly.ttf) format('truetype');
+            }
+        </style>-->
+    </head>
+    <body>
+        <div class="box top center">
+            <div class="inner-box">
+                <div id="title_text">Initializing...</div>
+            </div>
+        </div>
+        <div id="display">         
+        </div>
+        <div class="box bottom center">
+            <div class="inner-box">
+                <div id="version_text">Version</div>
+            </div>
+        </div>
+        <script>
+            $(() => {
+                var LUNA = tw.digitalculture.config.Config.LUNA;
+                var UMBRA = tw.digitalculture.config.Config.UMBRA;
+                var canvas = document.createElement("canvas");
+                qrcodelib.toCanvas(canvas, UMBRA.URL, function (err) {
+                    var canvas_adj = document.createElement("canvas");
+                    var ctx = canvas_adj.getContext('2d');
+                    var ratio = 1.5;
+                    canvas_adj.width = canvas.width * ratio;
+                    canvas_adj.height = canvas.height * ratio;
+                    ctx.fillStyle = LUNA.CARD.COLOR;
+                    ctx.fillRect(0, 0, canvas.width * ratio, canvas.height * ratio);
+                    ctx.drawImage(canvas, canvas.width * (ratio - 1) / 2, canvas.height * (ratio - 1) / 2);
+                    UMBRA.QRCODE_IMG = canvas_adj.toDataURL("image/png");
+//                    console.log(UMBRA.QRCODE_IMG);
+                });
+            });
+        </script>
+    </body>
+</html>

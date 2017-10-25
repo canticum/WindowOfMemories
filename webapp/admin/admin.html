@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/jquery/dist/jquery.min.js"></script>
+        <script src="/socket.io-client/dist/socket.io.js"></script>
+        <script src="/config/Config.js"></script>
+        <script src="/admin/Admin.js"></script>
+        <script src="/admin/Keyword.js"></script>
+        <script>
+            $(() => {
+                var PROJECT = tw.digitalculture.config.Config.PROJECT;
+                $("title").text(PROJECT.TITLE_MAIN + " | " + PROJECT.TITLE_ENGLISH);
+                var keywords = Array.from(PROJECT.KEYWORDS);
+                $("#current").text(keywords.toString());
+            });
+        </script>
+    </head>
+    <body>
+        <div id="current"></div>
+        <div id="keyword_panel"></div>
+        <button id="submit">Submit</button>
+        <button id="update">Update</button>
+    </body>
+</html>
